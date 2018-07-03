@@ -10,35 +10,51 @@ class Chat extends Component {
 
     this.state = {
       messages: [
-        { 
+        {
           id: 1,
           user: {
-              uid: 'randomString',
-              displayName: 'Rebecca',
-              email: 'rkim7987@gmail.com',
+            uid: 'sdfs34849327',
+            displayName: 'Davey',
+            email: 'davey@fretless.com',
           },
-          body: 'chat chat chat',
-         },
+          body: 'Chatting up a storm, yo!',
+        },
 
-         {
-           id: 2,
-           user: {
-               uid: 'anotherRandomString',
-               displayName: 'kim',
-               email: 'yeet@gmail.com', 
-           },
-           body: 'this dude is cool',
-         },
-    ]
+        {
+          id: 2,
+          user: {
+            uid: 'sdlfkj35948',
+            displayName: 'Dana',
+            email: 'dana@fretless.com',
+          },
+          body: 'This guy is so annoying. I hate my job.',
+        },
+      ],
     }
+  }
+
+  addMessage = () => {
+    const messages = [...this.state.messages]
+
+    messages.push({
+      id: Date.now(),
+      user: {
+        uid: 'sdfs34843560',
+        displayName: 'Stefany',
+        email: 'stefany@singing.org',
+      },
+      body: 'I do not think he\'s annoying. How dare you, Dana!',
+    })
+
+    this.setState({ messages: messages })
   }
 
   render() {
     return (
       <div className="Chat">
         <ChatHeader />
-        <MessageList  messages={this.state.messages} />
-        <MessageForm />
+        <MessageList messages={this.state.messages} />
+        <MessageForm addMessage={this.addMessage} />
       </div>
     )
   }
