@@ -9,18 +9,18 @@ class App extends Component {
     super()
 
     this.state = {
-      user: {
-        uid: 'sdfs34843560',
-        displayName: 'Davey',
-        email: 'davey@singing.org',
-      },
+      user: {},
     }
+  }
+
+  handleAuth = (user) => {
+    this.setState({ user: user })
   }
 
   render() {
     return (
       <div className="App">
-        <Signin />
+        <Signin handleAuth={this.handleAuth}/>
        {/* <Main user={this.state.user} /> */}
       </div>
     )

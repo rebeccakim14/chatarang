@@ -1,6 +1,23 @@
 import React, {Component} from 'react'
 
 class SignIn extends Component {
+    state = {
+        email: '',
+    }
+
+    handleChange = (ev) => {
+        this.setState({ email: ev.target.value })
+    }
+
+    handleSubmit = (ev) => {
+        ev.preventDefault()
+        this.props.handleAuth({
+            uid: `${this.state.email}-'hello`,
+            email: this.state.email,
+            displayName: this.state.email,
+        })
+    }
+
     render() {
         return (
             <div className="SignIn">
@@ -11,6 +28,8 @@ class SignIn extends Component {
                         autoFocus
                         type="email"
                         name="email"
+                        value={this.state.email}
+                        onchange={this.handleChange}
                     />
                     <button
                         type="submit"
@@ -19,7 +38,6 @@ class SignIn extends Component {
                     </button>
                 </form>
             </div>
-
         )
     }
 }
