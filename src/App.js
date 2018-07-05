@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 
 import './App.css'
 import Main from './Main'
-import Signin from './SignIn'
+import SignIn from './SignIn'
 
 class App extends Component {
   constructor() {
@@ -16,7 +16,7 @@ class App extends Component {
   }
 
   handleAuth = (user) => {
-    this.setState({ user: user })
+    this.setState({ user })
     localStorage.setItem('user', JSON.stringify(user))
   }
 
@@ -24,8 +24,8 @@ class App extends Component {
     return this.state.user.uid
   }
 
-  SignedOut = () => {
-    this.setState({user: {} })
+  signOut = () => {
+    this.setState({ user: {} })
     localStorage.removeItem('user')
   }
 
@@ -34,10 +34,11 @@ class App extends Component {
       <div className="App">
         {
           this.signedIn()
-        ? <Main
-             user={this.state.user}
-             SignedOut={this.SignedOut} /> 
-        : <Signin handleAuth={this.handleAuth}/>
+            ? <Main
+                user={this.state.user}
+                signOut={this.signOut}
+              />
+            : <SignIn handleAuth={this.handleAuth} />
         }
       </div>
     )

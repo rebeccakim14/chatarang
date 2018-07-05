@@ -8,9 +8,9 @@ class Main extends Component {
     return (
       <div className="Main" style={styles}>
         <Sidebar
-         user={this.props.user}
-         signedOut={this.props.signedOut}
-         />
+          user={this.props.user}
+          signOut={this.props.signOut}
+        />
         <Chat user={this.props.user} />
       </div>
     )
@@ -18,9 +18,9 @@ class Main extends Component {
 }
 
 const styles = {
-    display: 'flex',
-    alignItems: 'stretch',
-    height: '100vh',
+  display: 'flex',
+  alignItems: 'stretch',
+  height: '100vh',
 }
 
 export default Main
