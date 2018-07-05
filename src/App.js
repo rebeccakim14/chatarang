@@ -17,11 +17,24 @@ class App extends Component {
     this.setState({ user: user })
   }
 
+  signedIn = () => {
+    return this.state.user.uid
+  }
+
+  SignedOut = () => {
+    this.setState({user: {} })
+  }
+
   render() {
     return (
       <div className="App">
-        <Signin handleAuth={this.handleAuth}/>
-       {/* <Main user={this.state.user} /> */}
+        {
+          this.signedIn()
+        ? <Main
+             user={this.state.user}
+             SignedOut={this.SignedOut} /> 
+        : <Signin handleAuth={this.handleAuth}/>
+        }
       </div>
     )
   }

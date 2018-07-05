@@ -29,7 +29,7 @@ class SignIn extends Component {
                         type="email"
                         name="email"
                         value={this.state.email}
-                        onchange={this.handleChange}
+                        onChange={this.handleChange}
                     />
                     <button
                         type="submit"
