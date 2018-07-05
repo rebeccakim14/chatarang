@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 
 import './App.css'
 import Main from './Main'
+import Signin from './SignIn'
 
 class App extends Component {
   constructor() {
@@ -19,7 +20,8 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <Main user={this.state.user} />
+        <Signin />
+       {/* <Main user={this.state.user} /> */}
       </div>
     )
   }

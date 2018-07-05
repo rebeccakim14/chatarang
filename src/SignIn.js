@@ -5,7 +5,7 @@ class SignIn extends Component {
         return (
             <div className="SignIn">
                 <form>
-                    <label htmlFor='email'>Family</label>
+                    <label htmlFor='email'>Email</label>
                     <input
                         required
                         autoFocus
