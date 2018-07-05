@@ -1,45 +1,52 @@
 import React, { Component } from 'react'
+import { StyleSheet, css } from 'aphrodite'
 
 class MessageForm extends Component {
+  state = {
+    body: '',
+  }
 
-    state = {
-        body: '',
-    }
+  handleSubmit = (ev) => {
+    ev.preventDefault()
+    this.props.addMessage(this.state.body)
+    this.setState({ body: '' })
+  }
 
-    handleSubmit = (ev) => {
-        ev.preventDefault()
-        this.props.addMessage(this.state.body)
-        this.setState({body: ''})
-    }
-
-    handleChange = (ev) => {
-        this.setState({body: ev.target.value})
-    }
+  handleChange = (ev) => {
+    this.setState({ body: ev.target.value })
+  }
 
   render() {
     return (
-      <form 
-        className="MessageForm"
+      <form
+        className={`MessageForm ${css(styles.messageForm)}`}
         onSubmit={this.handleSubmit}
       >
+        <div className={css(styles.icon)}>
+          <i className="fas fa-comment-alt"></i>
+        </div>
         <input
           autoFocus
           required
           type="text"
           name="body"
+          className={css(styles.input)}
           placeholder="Type a message..."
           value={this.state.body}
           onChange={this.handleChange}
         />
-        <button type="submit">
-          Send
+        <button
+          type="submit"
+          className={css(styles.button)}
+        >
+          <i className="far fa-paper-plane" title="Send"></i>
         </button>
       </form>
     )
   }
 }
 
-const styles = {
+const styles = StyleSheet.create({
   messageForm: {
     backgroundColor: 'white',
     height: '3rem',
@@ -81,6 +88,6 @@ const styles = {
     borderBottomRightRadius: '0.5rem',
     border: '1px solid white',
   }
-}
+})
 
 export default MessageForm
