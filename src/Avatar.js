@@ -20,7 +20,7 @@ const styles = {
   width: '40px',
   fontSize: '1rem',
   borderRadius: '20px',
-  backgroundSide: '40px 40px',
+  backgroundSize: '40px 40px',
 }
 
 export default Avatar
