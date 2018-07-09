@@ -9,6 +9,22 @@ class Main extends Component {
       name: 'chatarang',
       description: 'ask questions and share code',
     },
+    rooms: {
+      s3afternoon: {
+        name: 's3afternoon',
+        description: 'Ask questions and share code',
+      },
+
+      general: {
+        name: 'general',
+        description: 'Chat about whatever',
+      },
+
+      random: {
+        name: 'random',
+        description: 'Cat GIFs, etc.',
+      },
+    },
   }
   render() {
     return (
@@ -16,6 +32,7 @@ class Main extends Component {
         <Sidebar
           user={this.props.user}
           signOut={this.props.signOut}
+          rooms={this.state.rooms}
         />
         <Chat
          user={this.props.user}
