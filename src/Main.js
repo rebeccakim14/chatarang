@@ -49,11 +49,11 @@ class Main extends Component {
   }
 
   showRoomForm = () => {
-    this.setState({showRoomForm: true})
+    this.setState({ showRoomForm: true })
   }
 
   hideRoomForm = () => {
-    this.setState({showRoomForm: false})
+    this.setState({ showRoomForm: false })
   }
 
   render() {
@@ -63,7 +63,6 @@ class Main extends Component {
 
     return (
       <div className="Main" style={styles}>
-        <RoomForm addRoom={this.addRoom} />
         <Sidebar
           user={this.props.user}
           signOut={this.props.signOut}
@@ -73,7 +72,7 @@ class Main extends Component {
         <Chat
           user={this.props.user}
           room={this.state.room}
-        /> 
+        />
       </div>
     )
   }
