@@ -19,8 +19,8 @@ componentDidMount() {
   this.syncMessages()
 }
 
-ComponentDidUpdate(prevProps, prevState, snapshot) {
-  if (prevProps.room.name != this.props.room.name) {
+componentDidUpdate(prevProps, prevState, snapshot) {
+  if (prevProps.room.name !== this.props.room.name) {
     this.syncMessages()
   }
 }
