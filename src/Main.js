@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 
 import Sidebar from './Sidebar'
 import Chat from './Chat'
+import RoomForm from './RoomForm'
 import base from './base'
 
 class Main extends Component {
@@ -35,9 +36,10 @@ class Main extends Component {
   }
 
   addRoom = room => {
-    const rooms = {...this.state.rooms} 
+    const rooms = {...this.state.rooms}
     rooms[room.name] = room
-    this.setState({rooms})
+
+    this.setState({ rooms })
   }
 
   setCurrentRoom = roomName => {
@@ -48,7 +50,8 @@ class Main extends Component {
   render() {
     return (
       <div className="Main" style={styles}>
-        <Sidebar
+        <RoomForm addRoom={this.addRoom} />
+        {/* <Sidebar
           user={this.props.user}
           signOut={this.props.signOut}
           rooms={this.state.rooms}
@@ -57,7 +60,7 @@ class Main extends Component {
         <Chat
           user={this.props.user}
           room={this.state.room}
-        />
+        /> */}
       </div>
     )
   }
