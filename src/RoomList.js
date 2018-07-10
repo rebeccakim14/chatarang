@@ -18,6 +18,7 @@ const RoomList = ({ rooms }) => {
               <Room
                 key={roomName}
                 roomName={roomName}
+                setCurrentRoom={roomName} //rooms.setCurrentRoom
               />
             )
           )
