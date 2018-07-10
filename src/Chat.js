@@ -31,7 +31,7 @@ componentWillUnmount() {
 
 syncMessages = () => {
   if (this.messagesRef) {
-    base.removeBinding(this.messagesRef)
+    base.removeBinding(this.messagesRef)sdf
   }
 
   this.messagesRef = base.syncState(
