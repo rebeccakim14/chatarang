@@ -1,30 +1,42 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 
 import Message from './Message'
 
 class MessageList extends Component {
-  render() {
-    const {messages, room} = this.props
-  return (
-    <div
-      className="MessageList"
-      style={styles.messageList}
-    >
-      <div style={styles.roomAnnouncement}>
-        <h3 style={styles.h3}>
-          #{room.name}
-        </h3>
-        <p>This is the very beginning of the #{room.name} room.</p>
-      </div>
+  componentDidUpdate(prevProps) {
+    if (prevProps.messages.length < this.props.messages.length) {
+      this.scrollToBottom()
+    }
+  }
 
-      {
-        messages.map(msg => (
-          <Message message={msg} key={msg.id} />
-        ))
-      }
-    </div>
-  )
-}
+  scrollToBottom = () => {
+    // "smooth" and other options not supported in IE
+    this.messagesEnd.scrollIntoView({ behavior: 'smooth' })
+  }
+
+  render() {
+    const { messages, room } = this.props
+    return (
+      <div
+        className="MessageList"
+        style={styles.messageList}
+      >
+        <div style={styles.roomAnnouncement}>
+          <h3 style={styles.h3}>
+            #{room.name}
+          </h3>
+          <p>This is the very beginning of the #{room.name} room.</p>
+        </div>
+
+        {
+          messages.map(msg => (
+            <Message message={msg} key={msg.id} />
+          ))
+        }
+        <div ref={el => this.messagesEnd = el}></div>
+      </div>
+    )
+  }
 }
 
 const styles = {
@@ -43,6 +55,5 @@ const styles = {
     fontSize: '1.5rem',
   },
 }
-
 
 export default MessageList
