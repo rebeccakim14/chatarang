@@ -1,9 +1,11 @@
 import React, { Component } from 'react'
+import { Route, Switch, Redirect } from 'react-router-dom'
 
 import './App.css'
 import Main from './Main'
 import SignIn from './SignIn'
-import {auth} from './base'
+
+import { auth } from './base'
 
 class App extends Component {
   constructor() {
@@ -20,11 +22,13 @@ class App extends Component {
     auth.onAuthStateChanged(
       user => {
         if (user) {
+          // User is signed in.
           this.handleAuth(user)
         } else {
+          // No user is signed in.
           this.handleUnauth()
         }
-      })
+    })
   }
 
   handleAuth = (oAuthUser) => {
@@ -32,7 +36,7 @@ class App extends Component {
       uid: oAuthUser.uid,
       displayName: oAuthUser.displayName,
       email: oAuthUser.email,
-      photoURL: oAuthUser.photoURL,
+      photoUrl: oAuthUser.photoURL,
     }
     this.setState({ user })
     localStorage.setItem('user', JSON.stringify(user))
@@ -46,7 +50,7 @@ class App extends Component {
     auth.signOut()
   }
 
-  handleUnauth =() => {
+  handleUnauth = () => {
     this.setState({ user: {} })
     localStorage.removeItem('user')
   }
@@ -54,14 +58,34 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        {
-          this.signedIn()
-            ? <Main
-                user={this.state.user}
-                signOut={this.signOut}
-              />
-            : <SignIn/>
-        }
+        <Switch>
+          <Route
+            path="/sign-in"
+            render={() => (
+              this.signedIn()
+                ? <Redirect to="/chat" />
+                : <SignIn />
+            )}
+          />
+          <Route
+            path="/chat"
+            render={() => (
+              this.signedIn()
+                ? <Main
+                    user={this.state.user}
+                    signOut={this.signOut}
+                  />
+                : <Redirect to="/sign-in" />
+            )}
+          />
+          <Route
+            render={() => (
+              this.signedIn()
+                ? <Redirect to="/chat" />
+                : <Redirect to="/sign-in" />
+            )}
+          />
+        </Switch>
       </div>
     )
   }
