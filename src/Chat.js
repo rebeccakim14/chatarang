@@ -52,6 +52,7 @@ syncMessages = () => {
       id: `${user.uid}-${Date.now()}`,
       user: user,
       body: body,
+      createdAt: Date.now(),
     })
 
     this.setState({ messages: messages })
