@@ -5,25 +5,29 @@ import { auth, googleProvider, githubProvider } from './base'
 
 class SignIn extends Component {
   state = {
-    email: '',
+    user: {
+      email: '',
+      password: '',
+    }
   }
 
   authenticate = (provider) => {
     auth.signInWithPopup(provider)
   }
 
-  // handleChange = (ev) => {
-  //   this.setState({ email: ev.target.value })
-  // }
+  handleChange = (ev) => {
+    const user = {...this.state.user}
+    user[ev.target.name] = ev.target.value
+    this.setState({ user })
+  }
 
-  // handleSubmit = (ev) => {
-  //   ev.preventDefault()
-  //   this.props.handleAuth({
-  //     uid: `${this.state.email}-ksdfjhu32472398`,
-  //     displayName: this.state.email,
-  //     email: this.state.email,
-  //   })
-  // }
+  handleSubmit = (ev) => {
+    ev.preventDefault()
+    auth.signInWithEmailAndPassword(
+      this.state.user.email,
+      this.state.user.password
+    )
+  }
 
   render() {
     return (
@@ -40,7 +44,8 @@ class SignIn extends Component {
             onSubmit={this.handleSubmit}
           >
             <h2>Sign In</h2>
-            {/* <label
+
+            <label
               htmlFor="email"
               className={css(styles.label)}
             >
@@ -48,18 +53,35 @@ class SignIn extends Component {
             </label>
             <input
               autoFocus
+              required
               type="email"
               name="email"
               className={css(styles.input)}
-              value={this.state.email}
+              value={this.state.user.email}
               onChange={this.handleChange}
             />
+
+            <label
+              htmlFor="password"
+              className={css(styles.label)}
+            >
+              Password
+            </label>
+            <input
+              required
+              type="password"
+              name="password"
+              className={css(styles.input)}
+              value={this.state.user.password}
+              onChange={this.handleChange}
+            />
+
             <button
               type="submit"
               className={css(styles.button)}
             >
               Sign In
-            </button> */}
+            </button>
 
             <button
               type="button"
@@ -91,7 +113,6 @@ class SignIn extends Component {
     )
   }
 }
-
 const styles = StyleSheet.create({
   signIn: {
     display: 'flex',
@@ -99,7 +120,6 @@ const styles = StyleSheet.create({
     height: '100vh',
     backgroundColor: '#f6f6f6',
   },
-
   header: {
     backgroundColor: '#fff',
     height: '4rem',
@@ -109,7 +129,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     boxShadow: '0 1px 1px rgba(0,0,0,.1)',
   },
-
   title: {
     color: '#ff3344',
     fontWeight: 400,
@@ -117,7 +136,6 @@ const styles = StyleSheet.create({
     lineHeight: '80px',
     fontSize: '2rem',
   },
-
   main: {
     flex: 1,
     textAlign: 'center',
@@ -127,7 +145,6 @@ const styles = StyleSheet.create({
     margin: '0 auto',
     paddingBottom: '3rem',
   },
-
   form: {
     width: '40rem',
     backgroundColor: 'white',
@@ -135,13 +152,11 @@ const styles = StyleSheet.create({
     marginBottom: '2rem',
     paddingBottom: '2rem',
   },
-
   label: {
     display: 'block',
     textTransform: 'uppercase',
     color: '#999',
   },
-
   input: {
     width: '20rem',
     fontSize: '1.5rem',
@@ -151,16 +166,13 @@ const styles = StyleSheet.create({
     marginBottom: '1rem',
     textAlign: 'center',
     padding: '0.5rem',
-
     ':focus': {
       outline: 0,
     },
   },
-
   h2: {
     fontWeight: 'normal',
   },
-
   button: {
     display: 'block',
     margin: '0 auto 1rem',
@@ -171,12 +183,10 @@ const styles = StyleSheet.create({
     color: 'white',
     width: '20rem',
   },
-
   github: {
     marginBottom: 0,
     backgroundColor: '#6e5494',
   },
-
   brandIcon: {
     marginRight: '1rem',
   },

@@ -3,15 +3,15 @@ import React from 'react'
 import Avatar from './Avatar'
 import SignOutButton from './SignOutButton'
 
-const UserInfo = ({user, signOut}) => {
+const UserInfo = ({ user, signOut }) => {
   return (
     <div
       className="UserInfo"
       style={styles.userInfo}
     >
-      <Avatar user={user}/>
+      <Avatar user={user} />
       <div style={styles.user}>
-        {user.displayName}
+        {user.displayName || user.email}
       </div>
       <SignOutButton signOut={signOut} />
     </div>
