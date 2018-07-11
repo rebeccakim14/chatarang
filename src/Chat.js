@@ -12,62 +12,68 @@ class Chat extends Component {
 
     this.state = {
       messages: [],
+    }
   }
-}
 
-componentDidMount() {
-  this.syncMessages()
-}
-
-componentDidUpdate(prevProps, prevState, snapshot) {
-  if (prevProps.room.name !== this.props.room.name) {
+  componentDidMount() {
     this.syncMessages()
   }
-}
 
-componentWillUnmount() {
-  base.removeBinding(this.messagesRef)
-}
+  componentDidUpdate(prevProps, _prevState, _snapshot) {
+    if (prevProps.room.name !== this.props.room.name) {
+      this.syncMessages()
+    }
+  }
 
-syncMessages = () => {
-  if (this.messagesRef) {
+  componentWillUnmount() {
     base.removeBinding(this.messagesRef)
   }
 
-  this.messagesRef = base.syncState(
-    `messages/${this.props.room.name}`,
-    {
-      context: this,
-      state: 'messages',
-      asArray: true, 
+  syncMessages = () => {
+    if (this.messagesRef) {
+      base.removeBinding(this.messagesRef)
     }
-  )
-}
- 
+
+    this.messagesRef = base.syncState(
+      `messages/${this.props.room.name}`,
+      {
+        context: this,
+        state: 'messages',
+        asArray: true,
+      }
+    )
+  }
+
   addMessage = (body) => {
     const messages = [...this.state.messages]
     const user = this.props.user
 
     messages.push({
       id: `${user.uid}-${Date.now()}`,
-      user: user,
-      body: body,
+      user,
+      body,
       createdAt: Date.now(),
     })
 
-    this.setState({ messages: messages })
+    this.setState({ messages })
   }
 
   render() {
     return (
-      <div className="Chat" style={styles}>
-      <ChatHeader room={this.props.room} />
-      <MessageList 
-      messages={this.state.messages}
-      room={this.props.room}
-      />
-      <MessageForm addMessage={this.addMessage} />
-    </div>
+      <div
+        className="Chat"
+        style={styles}
+      >
+        <ChatHeader
+          room={this.props.room}
+          removeRoom={this.props.removeRoom}
+        />
+        <MessageList
+          messages={this.state.messages}
+          room={this.props.room}
+        />
+        <MessageForm addMessage={this.addMessage} />
+      </div>
     )
   }
 }
